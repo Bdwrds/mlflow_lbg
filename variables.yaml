@@ -29,7 +29,7 @@ variables:
       'Assoc-voc': 14
       'Assoc-acdm': 15
       'Prof-school': 16
-  valid_numeric_features:
+  valid_numeric_variables:
     - age
     - education_num
     - occupation_level
@@ -42,7 +42,7 @@ variables:
     - demographic_characteristic
     - total_months_with_employer
     - annual_salary
-  valid_categorical_features:
+  valid_categorical_variables:
     workclass_adj: [ 'private','public', 'self-emp','unknown','wo-pay','never' ]
     town_adj_top_5: [ 'Edinburgh','Swindon','Leeds','Oxford','Bristol' ]
     company_email_adj_top_5: [ 'smith.com','jones.com','williams.com', 'brown.com', 'taylor.com' ]
