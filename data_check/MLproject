@@ -1,0 +1,21 @@
+name: data_check
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      csv_input:
+        description: Name of the input csv file
+        type: string
+
+      csv_checked_output:
+        description: Name of the output csv that has been tested
+        type: string
+
+      yaml_file:
+        description: Yaml file covering variables
+        type: string
+
+    command: "pytest . -vv --csv_input {csv_input}  --csv_checked_output {csv_checked_output} \
+            --yaml_file {yaml_file}"
+

@@ -15,6 +15,8 @@ mlruns/
 # lbg data
 Assignment/
 
+outputs/
+
 # Distribution / packaging
 .Python
 build/

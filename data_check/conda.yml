@@ -1,0 +1,8 @@
+name: preprocess
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas=1.2.3
+  - pyyaml=5.3.1
+  - pytest=6.2.2

@@ -1,0 +1,52 @@
+variables:
+  mappings:
+    salary_band_text:
+      'pw': 'weekly'
+      'per month': 'monthly'
+      'range': 'range'
+      'yearly': 'yearly'
+    workclass:
+      '-gov': 'public'
+      '-emp': 'self-emp'
+      '\?': 'unknown'
+      'Private': 'unknown'
+      'Without': 'wo-pay'
+      'Never': 'never'
+    education_mapping_order:
+      'Preschool': 1
+      '1st-4th': 2
+      '5th-6th': 3
+      '7th-8th': 4
+      '9th': 5
+      '10th': 6
+      '11th': 7
+      '12th': 8
+      'HS-grad': 9
+      'Some-college': 10
+      'Bachelors': 11
+      'Masters': 12
+      'Doctorate': 13
+      'Assoc-voc': 14
+      'Assoc-acdm': 15
+      'Prof-school': 16
+  valid_numeric_features:
+    - age
+    - education_num
+    - occupation_level
+    - familiarity_FB
+    - view_FB
+    - education_order
+    - hours_per_week
+    - capital_gain
+    - capital_loss
+    - demographic_characteristic
+    - total_months_with_employer
+    - annual_salary
+  valid_categorical_features:
+    workclass_adj: [ 'private','public', 'self-emp','unknown','wo-pay','never' ]
+    town_adj_top_5: [ 'Edinburgh','Swindon','Leeds','Oxford','Bristol' ]
+    company_email_adj_top_5: [ 'smith.com','jones.com','williams.com', 'brown.com', 'taylor.com' ]
+    has_married: [ '0','1' ]
+    interested_insurance: [ '0','1' ]
+  target:
+    created_account: [ 'No','Yes' ]
