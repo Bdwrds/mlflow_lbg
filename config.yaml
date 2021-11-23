@@ -6,13 +6,14 @@ etl:
   csv_campaign: "Assignment/Campaign.csv"
   csv_mortgage: "Assignment/Mortgage.csv"
   csv_output: "data/clean_data.csv"
-  csv_checked_output: "data/checked_data.csv"
+  csv_output_rem: "data/clean_data_remainder.csv"
+  csv_checked_output: "data/validated_data.csv"
   yaml_file: "variables.yaml"
 modeling:
   test_size: 0.2 # Fraction of data to use for test (the remaining will be used for train and validation)
   val_size: 0.2 # Fraction of remaining data to use for validation
   random_seed: 42   # Fix this for reproducibility, change to have new splits
-  stratify_by: "target"
+  stratify_by: "created_account"
   random_forest:
     n_estimators: 100
     max_depth: 15

@@ -30,7 +30,7 @@ def test_row_count(data):
     """
     Checking the size of the dataset - not too small or large
     """
-    assert 15000 < data.shape[0] < 1000000
+    assert 0 < data.shape[0] < 1000000
 
 def test_variable_numeric(data, variables_yaml):
     """

@@ -48,8 +48,8 @@ def go(args):
     with open(args.yaml_file, "r") as yml:
         try:
             yaml_file = yaml.safe_load(yml)['variables']
-            valid_company_email_adj_top_5 = yaml_file['valid_categorical_features']['company_email_adj_top_5']
-            valid_town_adj_top_5 = yaml_file['valid_categorical_features']['town_adj_top_5']
+            valid_company_email_adj_top_5 = yaml_file['valid_categorical_variables']['company_email_adj_top_5']
+            valid_town_adj_top_5 = yaml_file['valid_categorical_variables']['town_adj_top_5']
             valid_salary_band_text = yaml_file['mappings']['salary_band_text']
             valid_workclass = yaml_file['mappings']['workclass']
             valid_education_order = yaml_file['mappings']['education_mapping_order']
@@ -61,8 +61,8 @@ def go(args):
     df_mortgage_sub = df_mortgage.iloc[0: df_campaign.shape[0], :].copy()
     df_combined = pd.merge(df_campaign, df_mortgage_sub, left_index=True, right_index=True)
 
-    ## NEW FEATURES
-    logger.info("Create new features")
+    ## NEW variables
+    logger.info("Create new variables")
     ## has_married
     df_combined['has_married'] = np.where(df_combined.marital_status.isin(['Divorced', 'Never-married']), 'No', 'Yes')
 
@@ -81,7 +81,7 @@ def go(args):
     df_combined['total_months_with_employer'] = \
         df_combined['years_with_employer'] * 12 + df_combined['months_with_employer']
 
-    # new feature with ordered number from category
+    # new variables with ordered number from category
     df_combined['education_order'] = df_combined.education.map(valid_education_order)
 
     ## Most popular towns
@@ -98,9 +98,15 @@ def go(args):
     # convert binary flags from numeric to string
     df_combined['interested_insurance'] = np.where(df_combined['interested_insurance'] == 1, 'Yes', 'No')
 
+    logger.info("Filter for those clients in the previous campaign")
+    # filter the table for just customer who were in the previous campaign
+    df_final = df_combined.loc[~df_combined.created_account.isna()].copy()
+    df_remainder = df_combined.loc[df_combined.created_account.isna()].copy()
+
     ## finally write new df to csv
     logger.info("Write cleaned df to csv")
-    df_combined.to_csv(args.csv_output, index=False)
+    df_final.to_csv(args.csv_output, index=False)
+    df_remainder.to_csv(args.csv_output_rem, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="This step cleans the data")
@@ -120,6 +126,12 @@ if __name__ == "__main__":
         "--csv_output",
         type=str,
         help="Name of the cleaned csv file",
+        required=True
+    )
+    parser.add_argument(
+        "--csv_output_rem",
+        type=str,
+        help="Name of the cleaned csv file - not in original campaign",
         required=True
     )
     parser.add_argument(

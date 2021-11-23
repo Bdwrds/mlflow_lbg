@@ -38,6 +38,7 @@ def go(config: DictConfig):
                     "csv_campaign": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_campaign']),
                     "csv_mortgage": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_mortgage']),
                     "csv_output": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_output']),
+                    "csv_output_rem": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_output_rem']),
                     "yaml_file": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_file'])
                 },
             )
@@ -56,10 +57,10 @@ def go(config: DictConfig):
 
         if "data_split" in active_steps:
             _ = mlflow.run(
-                f"{config['main']['components_repository']}/train_val_test_split",
+                os.path.join(hydra.utils.get_original_cwd(), "data_split"),
                 "main",
                 parameters={
-                    "input": "clean_sample.csv:latest",
+                    "csv_clean": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_checked_output']),
                     "test_size": config['modeling']['test_size'],
                     "random_seed": config['modeling']['random_seed'],
                     "stratify_by": config['modeling']['stratify_by']
