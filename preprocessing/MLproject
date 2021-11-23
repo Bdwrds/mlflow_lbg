@@ -1,0 +1,13 @@
+name: preprocessing
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      csv_campaign:
+        description: Input csv of the campaign dataset
+        type: string
+
+      csv_mortgage:
+        description: Input csv of the mortgage applicants
+        type: string
