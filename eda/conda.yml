@@ -8,5 +8,5 @@ dependencies:
   - pip=20.3.3
   - pandas-profiling=2.11.0
   - pyarrow=2.0
+  - scikit-learn=1.0.1
   - pip:
-      - wandb==0.10.31

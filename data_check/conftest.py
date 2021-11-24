@@ -36,7 +36,7 @@ def variables_yaml(request):
     yaml_path = request.config.option.yaml_file
     with open(yaml_path, "r") as yml:
         try:
-            yaml_file = yaml.safe_load(yml)['variables']
+            yaml_file = yaml.safe_load(yml)
         except yaml.YAMLError as exc:
             pytest.fail("You must provide the --yaml_file option on the command line")
     return yaml_file

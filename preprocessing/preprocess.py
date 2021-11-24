@@ -98,10 +98,14 @@ def go(args):
     # convert binary flags from numeric to string
     df_combined['interested_insurance'] = np.where(df_combined['interested_insurance'] == 1, 'Yes', 'No')
 
+
     logger.info("Filter for those clients in the previous campaign")
     # filter the table for just customer who were in the previous campaign
     df_final = df_combined.loc[~df_combined.created_account.isna()].copy()
     df_remainder = df_combined.loc[df_combined.created_account.isna()].copy()
+
+    # turn target variable into binary flag
+    df_final['created_account'] = np.where(df_final['created_account'] == 'Yes', 1, 0)
 
     ## finally write new df to csv
     logger.info("Write cleaned df to csv")

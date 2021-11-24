@@ -22,5 +22,14 @@ entry_points:
         type: string
         default: 'none'
 
+      csv_train:
+        description: Final csv ready for splitting
+        type: string
+
+      csv_test:
+        description: Final csv ready for splitting
+        type: string
+
     command: "python train_test_split.py --csv_clean {csv_clean} --test_size {test_size} \
-                --random_seed {random_seed} --stratify_by {stratify_by}"
+                --random_seed {random_seed} --stratify_by {stratify_by} \
+                --csv_train {csv_train} --csv_test {csv_test}"

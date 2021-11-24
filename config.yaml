@@ -7,19 +7,13 @@ etl:
   csv_mortgage: "Assignment/Mortgage.csv"
   csv_output: "data/clean_data.csv"
   csv_output_rem: "data/clean_data_remainder.csv"
-  csv_checked_output: "data/validated_data.csv"
-  yaml_file: "variables.yaml"
+  csv_checked_output: "data/checked_data.csv"
+  csv_train: "data/train_data.csv"
+  csv_test: "data/test_data.csv"
+  yaml_variables: "config/variables.yaml"
 modeling:
   test_size: 0.2 # Fraction of data to use for test (the remaining will be used for train and validation)
   val_size: 0.2 # Fraction of remaining data to use for validation
   random_seed: 42   # Fix this for reproducibility, change to have new splits
   stratify_by: "created_account"
-  random_forest:
-    n_estimators: 100
-    max_depth: 15
-    min_samples_split: 4
-    min_samples_leaf: 3
-    n_jobs: -1     # Here -1 means all available cores
-    criterion: AUC
-    max_features: 0.5
-    oob_score: true
+  rf_param: "config/rf_param.yaml"

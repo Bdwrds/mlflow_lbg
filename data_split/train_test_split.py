@@ -19,7 +19,7 @@ def go(args):
     base_path = os.path.dirname(args.csv_clean)
 
     logger.info("Splitting trainval and test")
-    trainval, test = train_test_split(
+    df_trainval, df_test = train_test_split(
         df,
         test_size=args.test_size,
         random_state=args.random_seed,
@@ -27,8 +27,8 @@ def go(args):
     )
 
     logger.info("Saving datasets to data folder")
-    for df, name in zip([trainval, test], ['trainval.csv', 'test.csv']):
-        df.to_csv(os.path.join(base_path, name), index=False)
+    df_trainval.to_csv(args.csv_train, index=False)
+    df_test.to_csv(args.csv_test, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Split test and remainder")
@@ -42,5 +42,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--stratify_by", type=str, help="Column to use for stratification", default='none', required=False
     )
+    parser.add_argument("--csv_train", type=str, help="Output csv to name training data", required=True)
+    parser.add_argument("--csv_test", type=str, help="Output csv to name test data", required=True)
     args = parser.parse_args()
     go(args)

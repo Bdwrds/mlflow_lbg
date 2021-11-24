@@ -6,13 +6,13 @@ date: 2021-11-22
 import pandas as pd
 
 def get_variables_numeric(variables_yaml):
-    return variables_yaml['valid_numeric_variables']
+    return variables_yaml['variables']['valid_numeric_variables']
 
 def get_variables_categorical(variables_yaml):
-    return list(variables_yaml['valid_categorical_variables'])
+    return list(variables_yaml['variables']['valid_categorical_variables'])
 
 def get_target(variables_yaml):
-    return list(variables_yaml['target'])
+    return list(variables_yaml['variables']['target'])
 
 def test_column_names(data, variables_yaml):
     """
