@@ -39,6 +39,7 @@ def convert_salary_band_to_numeric(sband: pd.Series):
 
 
 def go(args):
+    logger.info("RUNNING PREPROCESSING SECTION")
     logger.info("Load data and apply basic clean on price")
     # loading both csv files
     df_campaign = pd.read_csv(args.csv_campaign)
@@ -48,14 +49,15 @@ def go(args):
     with open(args.yaml_file, "r") as yml:
         try:
             yaml_file = yaml.safe_load(yml)['variables']
-            valid_company_email_adj_top_5 = yaml_file['valid_categorical_variables']['company_email_adj_top_5']
-            valid_town_adj_top_5 = yaml_file['valid_categorical_variables']['town_adj_top_5']
-            valid_salary_band_text = yaml_file['mappings']['salary_band_text']
-            valid_workclass = yaml_file['mappings']['workclass']
-            valid_education_order = yaml_file['mappings']['education_mapping_order']
         except yaml.YAMLError as exc:
             logger.info("Failed loading yaml file", exc)
 
+    #
+    valid_company_email_adj_top_5 = yaml_file['valid_categorical_variables']['company_email_adj_top_5']
+    valid_town_adj_top_5 = yaml_file['valid_categorical_variables']['town_adj_top_5']
+    valid_salary_band_text = yaml_file['mappings']['salary_band_text']
+    valid_workclass = yaml_file['mappings']['workclass']
+    valid_education_order = yaml_file['mappings']['education_mapping_order']
 
     # filter for the same customer base and combine
     df_mortgage_sub = df_mortgage.iloc[0: df_campaign.shape[0], :].copy()

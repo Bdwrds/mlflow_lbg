@@ -17,6 +17,8 @@ Assignment/
 
 outputs/
 
+multirun/
+
 # Distribution / packaging
 .Python
 build/

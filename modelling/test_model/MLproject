@@ -1,0 +1,21 @@
+name: test_model
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      mlflow_model:
+        description: Directory of the model used for inference
+        type: string
+
+      test_data:
+        description: Test set used to assess performance against
+        type: string
+
+      yaml_variables:
+        description: Variables used in modelling
+        type: string
+
+    command: >-
+      python testing.py --mlflow_model {mlflow_model} \
+                    --test_data {test_data} --yaml_variables {yaml_variables}

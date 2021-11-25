@@ -16,4 +16,6 @@ modeling:
   val_size: 0.2 # Fraction of remaining data to use for validation
   random_seed: 42   # Fix this for reproducibility, change to have new splits
   stratify_by: "created_account"
-  rf_param: "config/rf_param.yaml"
+  model_param: "config/model_param.yaml"
+production:
+  model_dir: "modelling/decision_tree_dir"

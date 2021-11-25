@@ -70,13 +70,13 @@ def go(config: DictConfig):
 
         if "train_model" in active_steps:
             _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(), "train_model"),
+                os.path.join(hydra.utils.get_original_cwd(), "modelling/train_model"),
                 "main",
                 parameters={
                     "trainval_data": os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_train']),
                     "val_size": config['modeling']['val_size'],
                     "random_seed": config['modeling']['random_seed'],
-                    "rf_config": os.path.join(hydra.utils.get_original_cwd(),config['modeling']['rf_param']),
+                    "model_config": os.path.join(hydra.utils.get_original_cwd(),config['modeling']['model_param']),
                     "yaml_variables": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_variables']),
                     "output_artifact": "random_forest_export",
                 }
@@ -84,11 +84,13 @@ def go(config: DictConfig):
 
         if "test_model" in active_steps:
             _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(), "test_model"),
+                os.path.join(hydra.utils.get_original_cwd(), "modelling/test_model"),
                 "main",
                 parameters={
-                    "mlflow_model": os.path.join(hydra.utils.get_original_cwd(), "train_model/random_forest_dir"),
+                    "mlflow_model": os.path.join(hydra.utils.get_original_cwd(),
+                                                 config['production']['model_dir']),
                     "test_data":  os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_test']),
+                    "yaml_variables": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_variables']),
                 }
             )
 

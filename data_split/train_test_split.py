@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 def go(args):
-
+    logger.info("RUNNING DATA SPLIT SECTION")
     logger.info(f"Fetching cleaned dataset {args.csv_clean}")
     df = pd.read_csv(args.csv_clean)
     base_path = os.path.dirname(args.csv_clean)
