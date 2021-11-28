@@ -16,6 +16,7 @@ entry_points:
         description: Variables used in modelling
         type: string
 
+
     command: >-
       python testing.py --mlflow_model {mlflow_model} \
                     --test_data {test_data} --yaml_variables {yaml_variables}

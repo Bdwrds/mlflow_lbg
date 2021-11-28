@@ -1,0 +1,26 @@
+name: inference
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+      mlflow_model:
+        description: Directory of the model used for inference
+        type: string
+
+      infer_data:
+        description: Run model inference against new data
+        type: string
+
+      yaml_variables:
+        description: Variables used in modelling
+        type: string
+
+      csv_output:
+        description: Output file with predictions
+        type: string
+
+    command: >-
+      python inference.py --mlflow_model {mlflow_model} \
+                    --infer_data {infer_data} --yaml_variables {yaml_variables}\
+                    --csv_output {csv_output}

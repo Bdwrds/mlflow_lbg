@@ -14,7 +14,8 @@ _steps = [
     "data_check",
     "data_split",
     "train_model",
-    "test_model"
+    "test_model",
+    "inference"
 ]
 
 # Reads in the configuration
@@ -91,6 +92,19 @@ def go(config: DictConfig):
                                                  config['production']['model_dir']),
                     "test_data":  os.path.join(hydra.utils.get_original_cwd(), config['etl']['csv_test']),
                     "yaml_variables": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_variables']),
+                }
+            )
+
+        if "inference" in active_steps:
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "inference"),
+                "main",
+                parameters={
+                    "mlflow_model": os.path.join(hydra.utils.get_original_cwd(),
+                                                 config['production']['model_dir']),
+                    "infer_data":  os.path.join(hydra.utils.get_original_cwd(), config['production']['csv_test']),
+                    "yaml_variables": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_variables']),
+                    "csv_output": os.path.join(hydra.utils.get_original_cwd(), config['production']['csv_output']),
                 }
             )
 

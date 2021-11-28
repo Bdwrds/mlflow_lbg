@@ -19,3 +19,5 @@ modeling:
   model_param: "config/model_param.yaml"
 production:
   model_dir: "modelling/decision_tree_dir"
+  csv_test: "data/checked_data.csv"
+  csv_output: "data/predictions.csv"
