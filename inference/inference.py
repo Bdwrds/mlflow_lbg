@@ -16,10 +16,11 @@ def go(args):
     logger.info("RUNNING TEST SECTION")
     # Get all variables used for training
     with open(args.yaml_variables) as fp:
-        variables_yaml = yaml.safe_load(fp)
+        variables_yaml = yaml.safe_load(fp)['variables']
 
-    variables_numeric = variables_yaml['variables']['valid_numeric_variables']
-    variables_categorical = list(variables_yaml['variables']['valid_categorical_variables'])
+    variables_keys = variables_yaml['keys']
+    variables_numeric = variables_yaml['valid_numeric_variables']
+    variables_categorical = list(variables_yaml['valid_categorical_variables'])
     processed_features = variables_numeric + variables_categorical
 
     logger.info("Loading test data")
@@ -27,9 +28,13 @@ def go(args):
 
     logger.info("Loading model and performing inference on test set")
     sk_pipe = mlflow.sklearn.load_model(args.mlflow_model)
-    y_pred = pd.DataFrame(sk_pipe.predict(X_test))
+    y_pred = sk_pipe.predict(X_test)
 
-    y_pred.to_csv(args.csv_output, index=False)
+    # copy test data and include keys
+    df_keys = X_test.loc[:, variables_keys].copy()
+    df_keys['predict'] = y_pred
+    # save to file
+    df_keys.to_csv(args.csv_output, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Test the provided model against the test dataset")

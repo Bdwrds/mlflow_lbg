@@ -14,14 +14,18 @@ def get_variables_categorical(variables_yaml):
 def get_target(variables_yaml):
     return list(variables_yaml['variables']['target'])
 
+def get_variable_keys(variables_yaml):
+    return list(variables_yaml['variables']['keys'])
+
 def test_column_names(data, variables_yaml):
     """
     Check all required columns defined in yaml exist in data file
     """
+    variables_keys = get_variable_keys(variables_yaml)
     variables_numeric = get_variables_numeric(variables_yaml)
     variables_categorical = get_variables_categorical(variables_yaml)
     target = get_target(variables_yaml)
-    all_required_columns = variables_numeric + variables_categorical + target
+    all_required_columns = variables_keys + variables_numeric + variables_categorical + target
     filtered_cols = data.columns[data.columns.isin(all_required_columns)].values
     assert set(filtered_cols) == set(all_required_columns)
     return filtered_cols

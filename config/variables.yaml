@@ -29,6 +29,11 @@ variables:
       'Assoc-voc': 14
       'Assoc-acdm': 15
       'Prof-school': 16
+  keys:
+    - first_name
+    - last_name
+    - dob
+    - postcode
   valid_numeric_variables:
     - age
     - education_num
@@ -46,7 +51,7 @@ variables:
     workclass_adj: [ 'private','public', 'self-emp','unknown']
     town_adj_top_5: [ 'Edinburgh','Swindon','Leeds','Oxford','Bristol' ]
     company_email_adj_top_5: [ 'smith.com','jones.com','williams.com', 'brown.com', 'taylor.com' ]
-    has_married: [ '0','1' ]
+    is_married: [ '0','1' ]
     interested_insurance: [ '0','1' ]
   target:
     created_account: [ 'No','Yes' ]

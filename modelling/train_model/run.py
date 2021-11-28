@@ -48,14 +48,8 @@ def go(args):
 
     X = pd.read_csv(args.trainval_data)
     y = X.pop(target[0])
-    #X_num = X.loc[:,variables_numeric]
     X_cat = pd.get_dummies(X.loc[:, variables_categorical])
-    #X = pd.get_dummies(X, columns=variables_categorical)
-    #variables_categorical = list(X.columns[~X.columns.isin(variables_numeric)].values)
     variables_categorical_onehot = list(X_cat.columns.values)
-    #X = pd.concat([X_num, X_cat], axis=1)
-    #variables_numeric = list(X_num.columns.values)
-    #variables_categorical = list(X_cat.columns.values)
     processed_features = variables_numeric + variables_categorical_onehot
 
     # split data into train/ valid
@@ -91,12 +85,10 @@ def go(args):
     if os.path.exists("../random_forest_dir"):
         shutil.rmtree("../random_forest_dir")
     export_path = os.path.join(os.getcwd(), "../random_forest_dir")
-    #signature = infer_signature(X_val, y_val)
     mlflow.sklearn.save_model(
         sk_pipe_rf,
         export_path,
         serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE,
-        #signature=signature,
         input_example=X_val.iloc[:2],
     )
 
@@ -116,12 +108,10 @@ def go(args):
     if os.path.exists("../decision_tree_dir"):
         shutil.rmtree("../decision_tree_dir")
     export_path = os.path.join(os.getcwd(), "../decision_tree_dir")
-    #signature = infer_signature(X_val, y_val)
     mlflow.sklearn.save_model(
         sk_pipe_dt,
         export_path,
         serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE,
-        #signature=signature,
         input_example=X_val.iloc[:2],
     )
     # Plot feature importance
