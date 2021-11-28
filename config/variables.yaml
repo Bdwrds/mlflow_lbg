@@ -54,4 +54,4 @@ variables:
     is_married: [ '0','1' ]
     interested_insurance: [ '0','1' ]
   target:
-    created_account: [ 'No','Yes' ]
+    created_account: [0, 1]

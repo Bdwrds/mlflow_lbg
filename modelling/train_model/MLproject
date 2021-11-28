@@ -26,14 +26,9 @@ entry_points:
         description: Yaml file containing variables used for modelling.
         type: string
 
-      output_artifact:
-        description: Name for the output artifact
-        type: string
-
     command: >-
       python run.py --trainval_data {trainval_data} \
                     --val_size {val_size} \
                     --random_seed {random_seed} \
                     --model_config {model_config} \
-                    --yaml_variables {yaml_variables} \
-                    --output_artifact {output_artifact}
+                    --yaml_variables {yaml_variables}

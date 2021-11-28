@@ -76,8 +76,9 @@ def go(args):
     logger.info("Scoring")
     metric_auc = sk_pipe_rf.score(X_val, y_val)
     y_pred = sk_pipe_rf.predict(X_val)
+    metric_recall= recall_score(y_val, y_pred)
     metric_f2 = fbeta_score(y_val, y_pred, beta=2)
-    logger.info(f"RF AUC Score: {metric_auc}")
+    logger.info(f"DT Recall Score: {metric_recall}")
     logger.info(f"RF F2 Score: {metric_f2}")
     logger.info("Exporting RF model")
 
@@ -99,8 +100,9 @@ def go(args):
     ######################################
     metric_auc = sk_pipe_dt.score(X_val, y_val)
     y_pred = sk_pipe_dt.predict(X_val)
+    metric_recall = recall_score(y_val, y_pred)
     metric_f2 = fbeta_score(y_val, y_pred, beta=2)
-    logger.info(f"DT AUC Score: {metric_auc}")
+    logger.info(f"DT Recall Score: {metric_recall}")
     logger.info(f"DT F2 Score: {metric_f2}")
     logger.info("Exporting DT model")
 
@@ -200,12 +202,6 @@ if __name__ == "__main__":
         "--yaml_variables",
         help="Variables used for modelling.",
         default="none",
-    )
-    parser.add_argument(
-        "--output_artifact",
-        type=str,
-        help="Name for the output serialized model",
-        required=True,
     )
     args = parser.parse_args()
     go(args)

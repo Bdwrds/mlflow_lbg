@@ -75,7 +75,6 @@ def go(config: DictConfig):
                 "random_seed": config['modeling']['random_seed'],
                 "model_config": os.path.join(hydra.utils.get_original_cwd(),config['modeling']['model_param']),
                 "yaml_variables": os.path.join(hydra.utils.get_original_cwd(), config['etl']['yaml_variables']),
-                "output_artifact": "random_forest_export",
             }
         )
 
